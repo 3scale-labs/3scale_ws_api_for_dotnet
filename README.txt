@@ -61,3 +61,9 @@ _3ScaleAPI.Cancel(tdata.ID);
 Console.WriteLine("Error occured : " + err.GetType().Name + "\n");
 Console.WriteLine("Error type : " + err.ErrorReturn.ID + "\n");
 Console.WriteLine("Description : " + err.ErrorReturn.ServerMessage + "\n");
+
+
+4) Legal
+
+Copyright (c) 2008 3scale networks S.L., released under the MIT license.
+
