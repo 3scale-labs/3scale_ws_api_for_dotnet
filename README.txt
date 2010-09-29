@@ -17,50 +17,92 @@ using CS_threescale;
 
 using System;
 using System.Collections.Generic;
+using CS_threescale;
 using System.Text;
-using System.Collections;
-using System.Net;
-
+using System.Net
 
 3) Examples of usage:
 
 3.1) Initialize
 
-_3ScaleAPI = new Api(3SCALE_SERVER,PROVIDER_KEY);
+Api _3ScaleAPI = new Api(3SCALE_SERVER,PROVIDER_KEY);
 
-3.2) Add usage costs
+3.1) Authorize
 
-Hashtable costs = new Hashtable();
-costs.Add("hits", "1");
-costs.Add("storage", "20480");
+AuthorizeResponse resp = _3ScaleAPI.authorize(APPLICATION_ID);
 
-3.3) Start transaction
-
-TransactionData tdata = _3ScaleAPI.Start(USER_KEY, costs);
-or
-TransactionData tdata = _3ScaleAPI.Start(USER_KEY);
-
-TransactionData is an object with three getters:
-
-ID: String tdata.ID
-Contract name: String tdata.ContractName;
-Provider verification key: String tdata.ProviderVerification
-
-3.4) Confirm transaction
-
-_3ScaleAPI.Confirm(tdata.ID);
 or 
-_3ScaleAPI.Confirm(tdata.ID,costs);
 
-3.5) Cancel transaction
+AuthorizeResponse resp = _3ScaleAPI.authorize(APPLICATION_ID,APPLICATION_KEY);
 
-_3ScaleAPI.Cancel(tdata.ID);
+The response will be the object AuthorizeResponse or an exception.
 
-3.6) Upon errors the API will return exceptions as ApiException
+The object AuthorizeReponse can be printed with this function:
 
-Console.WriteLine("Error occured : " + err.GetType().Name + "\n");
-Console.WriteLine("Error type : " + err.ErrorReturn.ID + "\n");
-Console.WriteLine("Description : " + err.ErrorReturn.ServerMessage + "\n");
+static void print(AuthorizeResponse ar) 
+{
+    if (ar.authorized) {
+        Console.WriteLine("Authorized!!");
+    }
+    else {
+        Console.WriteLine("NOT Authorized!!" + ar.reason);
+    }
+
+    Console.WriteLine("PLAN: " + ar.plan);
+
+    int i=0;
+    foreach( UsageItem item in ar.usages){
+        Console.WriteLine("Usage: " + i);
+        Console.WriteLine("     Metric:     " + item.metric);
+        Console.WriteLine("     Period:     " + item.period);
+        Console.WriteLine("     CurrValue:  " + item.current_value);
+        Console.WriteLine("     MaxValue:   " + item.max_value);
+        Console.WriteLine("     PeriodStart:" + item.period_start);
+        Console.WriteLine("     PeriodEnd:  " + item.period_start);
+        i++;
+    }
+
+}
+
+
+
+3.2) Report
+
+_3ScaleAPI.report(transactions);
+
+Where transactions is a Hashtable containing a list of transaction. For instance:
+
+
+System.Collections.Hashtable transactions = new System.Collections.Hashtable();
+System.Collections.Hashtable transaction = null;
+System.Collections.Hashtable usage = null;
+
+transaction = new System.Collections.Hashtable();
+transaction.Add("app_id",app_id);
+
+// Timestamp is optional, if left undefined it will take the current time. If defined
+// it must have the format "yyyy-MM-dd HH:mm:ss K"
+transaction.Add("timestamp", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss K"));
+
+// Usage is a Hashtable that contains the metrics to be reported
+usage = new System.Collections.Hashtable();
+usage.Add("hits", 10);
+transaction.Add("usage",usage);
+
+// Adding the transaction to transactions
+transactions.Add("0", transaction);
+
+
+// create a second transaction to be reported in a single _3ScaleAPI.report()
+transaction = new System.Collections.Hashtable();
+transaction.Add("app_id", app_id);
+transaction.Add("timestamp", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss K"));
+usage = new System.Collections.Hashtable();
+usage.Add("hits", 1);
+transaction.Add("usage", usage);
+transactions.Add("1", transaction);
+
+_3ScaleAPI.report(transactions);
 
 
 4) Legal

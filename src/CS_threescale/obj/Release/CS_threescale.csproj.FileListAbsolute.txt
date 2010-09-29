@@ -1,0 +1,5 @@
+\\vmware-host\Shared Folders\shared-ubuntu\3scale\3scale_ws_api_for_dotnet\src\CS_threescale\bin\Release\CS_threescale.dll
+\\vmware-host\Shared Folders\shared-ubuntu\3scale\3scale_ws_api_for_dotnet\src\CS_threescale\bin\Release\CS_threescale.pdb
+\\vmware-host\Shared Folders\shared-ubuntu\3scale\3scale_ws_api_for_dotnet\src\CS_threescale\obj\Release\ResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\shared-ubuntu\3scale\3scale_ws_api_for_dotnet\src\CS_threescale\obj\Release\CS_threescale.dll
+\\vmware-host\Shared Folders\shared-ubuntu\3scale\3scale_ws_api_for_dotnet\src\CS_threescale\obj\Release\CS_threescale.pdb

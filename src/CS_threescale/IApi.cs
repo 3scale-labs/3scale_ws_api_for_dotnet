@@ -7,11 +7,9 @@ namespace CS_threescale
 {
     public interface IApi
     {
-        TransactionData Start(string user_contract_key, Hashtable metrics);
-        TransactionData Start(string user_contract_key);
-        void Confirm(string transaction_id, Hashtable metrics);
-        void Confirm(string transaction_id);
-        bool Cancel(string transaction_id);
+        AuthorizeResponse authorize(string app_id);
+        AuthorizeResponse authorize(string app_id, string app_key);
+        void report(Hashtable transactions);
 
         string HostURI
         {

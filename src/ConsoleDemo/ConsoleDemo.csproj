@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9DD2CA53-C5B5-4FF6-92C0-B48AEB193580}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{9E733286-291D-4425-ACDA-691AD8BA6F57}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CS_threescale</RootNamespace>
-    <AssemblyName>CS_threescale</AssemblyName>
+    <RootNamespace>ConsoleDemo</RootNamespace>
+    <AssemblyName>ConsoleDemo</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -42,13 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthorizeResponse.cs" />
-    <Compile Include="UsageItem.cs" />
-    <Compile Include="IApi.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SerializeHelper.cs" />
-    <Compile Include="Api.cs" />
-    <Compile Include="ApiError.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CS_threescale\CS_threescale.csproj">
+      <Project>{9DD2CA53-C5B5-4FF6-92C0-B48AEB193580}</Project>
+      <Name>CS_threescale</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
