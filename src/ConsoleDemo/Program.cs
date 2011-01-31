@@ -1,8 +1,8 @@
-;using System;
+using System;
 using System.Collections.Generic;
 using CS_threescale;
 using System.Text;
-using System.Net
+using System.Net;
 
 namespace ConsoleDemo
 {

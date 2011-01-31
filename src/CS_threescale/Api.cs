@@ -76,6 +76,7 @@ namespace CS_threescale
                     }
                     byte[] b = st.ToArray();
                     st.Clear();
+                    
                     switch (response.StatusCode)
                     {
                         case HttpStatusCode.OK:
@@ -121,6 +122,11 @@ namespace CS_threescale
                     
                     case HttpStatusCode.NotFound:
                         throw new ApiException("Request route not found");
+
+                    case HttpStatusCode.Conflict:
+                        AuthorizeResponse auth_response = new AuthorizeResponse(Encoding.UTF8.GetString(b));
+                        s.Close();
+                        return auth_response;
                        
                     default:
                         throw new ApiException("Unknown Exception: " + Encoding.UTF8.GetString(b));
@@ -148,7 +154,7 @@ namespace CS_threescale
 
             AddTransactions(ref content, transactions);
 
-            Console.WriteLine("content: " + content);
+            //Console.WriteLine("content: " + content);
 
             byte[] data = Encoding.UTF8.GetBytes(content);
             request.ContentLength = data.Length;
