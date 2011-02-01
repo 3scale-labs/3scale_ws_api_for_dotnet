@@ -95,6 +95,7 @@ namespace CS_threescale
                 Stream s = w.Response.GetResponseStream();
                 byte[] b = new byte[s.Length];
                 s.Read(b, 0, b.Length);
+                s.Close();
 
                 ApiError err = null;
 
@@ -125,7 +126,6 @@ namespace CS_threescale
 
                     case HttpStatusCode.Conflict:
                         AuthorizeResponse auth_response = new AuthorizeResponse(Encoding.UTF8.GetString(b));
-                        s.Close();
                         return auth_response;
                        
                     default:
