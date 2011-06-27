@@ -6,12 +6,12 @@ using System.Net;
 
 namespace ConsoleDemo
 {
-   
+
 
     class Program
     {
-        
-        static void print(AuthorizeResponse ar) 
+
+        static void print(AuthorizeResponse ar)
         {
             if (ar.authorized) {
                 Console.WriteLine("Authorized!!");
@@ -39,12 +39,12 @@ namespace ConsoleDemo
 
         static void Main(string[] args)
         {
-            
-        
+
+
             try {
-                string provider_key = "6d70ddea3d7e34a23753b8dcbfa12cbb";
-                string app_id = "552834012";
-               
+                string provider_key = "YOUR_PROVIDER_KEY";
+                string app_id = "APP_ID_OF_THE_USER";
+
                 Api _3ScaleAPI = new Api("http://su1.3scale.net", provider_key);
 
                 AuthorizeResponse resp = _3ScaleAPI.authorize(app_id);
@@ -52,7 +52,7 @@ namespace ConsoleDemo
                 print(resp);
 
                 Console.WriteLine("Done authorize...");
-                
+
                 System.Collections.Hashtable transactions = new System.Collections.Hashtable();
                 System.Collections.Hashtable transaction = null;
                 System.Collections.Hashtable usage = null;
@@ -78,14 +78,14 @@ namespace ConsoleDemo
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);               
+                Console.WriteLine(e.Message);
             }
 
             string s = Console.ReadLine();
-            
+
         }
     }
-    
+
 
 
 }
