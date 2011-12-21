@@ -12,6 +12,10 @@ namespace CS_threescale
     {
         string provider_key;
         string hostURI;
+
+        const int APP_ID = 1;
+        const int USER_KEY = 2;  
+
         const string contentType = "application/x-www-form-urlencoded";
 
         public Api()
@@ -41,23 +45,34 @@ namespace CS_threescale
         }
 
         public AuthorizeResponse authorize(string app_id) {
-            return authorize(app_id, null);
+            return aux_authorize(APP_ID,app_id, null);
         }
 
         public AuthorizeResponse authorize(string app_id, string app_key) {
+            return aux_authorize(APP_ID,app_id, app_key)  
+        }
 
-            if ((app_id==null) || (app_id.Length <= 0)) throw new ApiException("argument error: undefined app_id");
+        public AuthorizeResponse authorize_user_key(string user_key) {
+            return aux_authorize(USER_KEY,user_key, null)  
+        }
+
+        private AuthorizeResponse aux_authorize(int key_type, string id, string key) {
+
+            if ((key_type==APP_ID) && ((id==null) || (id.Length <= 0))) throw new ApiException("argument error: undefined app_id");
+            if ((key_type==USER_KEY) && ((id==null) || (id.Length <= 0))) throw new ApiException("argument error: undefined user_key");
 
             string URL = hostURI + "/transactions/authorize.xml";
-            string content = "?app_id=" + app_id + "&provider_key=" + provider_key;
 
-            if (app_key!=null) {
-                if (app_key.Length <= 0) throw new ApiException("argument error: undefined app_key");
-                else content = content + "&app_key=" + app_key;
+            string content = "?provider_key=" + provider_key;
+
+            if (key_type==USER_KEY) content = "&user_key=" + id;
+            else content ? "&app_id=" + id; 
+              
+            if (key_type==APP_ID) && (key!=null) {
+                if (key.Length <= 0) throw new ApiException("argument error: undefined app_key");
+                else content = content + "&app_key=" + key;
             }
 
-            
-          
             URL = URL + content;
                 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
