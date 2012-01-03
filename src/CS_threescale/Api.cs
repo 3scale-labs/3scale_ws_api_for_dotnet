@@ -270,17 +270,25 @@ namespace CS_threescale
 
                 obj = (Hashtable)entri.Value;
 
-                app_id = (string)obj["app_id"];
+               	app_id = (string)obj["app_id"];
+                user_key = (string)obj["user_key"];
                 //client_ip = (string)obj["client_ip"];
                 timestamp = (string)obj["timestamp"];
                 usage = (Hashtable)obj["usage"];
 
-                if ((app_id == null) || (app_id.Length <= 0)) throw new ApiException("argument error: undefined transaction, app_id is missing in one record");
+                //if ((app_id == null) || (app_id.Length <= 0)) throw new ApiException("argument error: undefined transaction, app_id is missing in one record");
                 if ((usage == null) || (usage.Count <= 0)) throw new ApiException("argument error: undefined transaction, usage is missing in one record");
 
                 if ((timestamp!=null) && (timestamp.Length <=0)) timestamp=null;
-
-                content = content + string.Format("&transactions[{0}][{1}]={2}",entri.Key,"app_id",app_id);
+                
+                if ((app_id!=null) && (app_id.Length>0)) {
+                    content = content + string.Format("&transactions[{0}][{1}]={2}",entri.Key,"app_id",app_id);
+                }
+				
+                if ((user_key!=null) && (user_key.Length>0)) {
+                    content = content + string.Format("&transactions[{0}][{1}]={2}",entri.Key,"user_key",user_key);
+                }
+				
                 if (timestamp!=null) content = content + string.Format("&transactions[{0}][{1}]={2}",entri.Key,"timestamp",timestamp);
 
                 foreach (DictionaryEntry entri_usage in usage) 
