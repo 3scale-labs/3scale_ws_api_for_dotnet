@@ -49,11 +49,11 @@ namespace CS_threescale
         }
 
         public AuthorizeResponse authorize(string app_id, string app_key) {
-            return aux_authorize(APP_ID,app_id, app_key)  
+          return aux_authorize(APP_ID, app_id, app_key); 
         }
 
         public AuthorizeResponse authorize_user_key(string user_key) {
-            return aux_authorize(USER_KEY,user_key, null)  
+          return aux_authorize(USER_KEY, user_key, null);  
         }
 
         private AuthorizeResponse aux_authorize(int key_type, string id, string key) {
@@ -65,10 +65,10 @@ namespace CS_threescale
 
             string content = "?provider_key=" + provider_key;
 
-            if (key_type==USER_KEY) content = "&user_key=" + id;
-            else content ? "&app_id=" + id; 
+            if (key_type==USER_KEY) {content = content + "&user_key=" + id;}
+            else{content = content + "&app_id=" + id; }
               
-            if (key_type==APP_ID) && (key!=null) {
+            if ((key_type==APP_ID) && (key!=null) ){
                 if (key.Length <= 0) throw new ApiException("argument error: undefined app_key");
                 else content = content + "&app_key=" + key;
             }
@@ -169,8 +169,8 @@ namespace CS_threescale
 
             AddTransactions(ref content, transactions);
 
-            //Console.WriteLine("content: " + content);
-
+            Console.WriteLine("content: " + content);
+            
             byte[] data = Encoding.UTF8.GetBytes(content);
             request.ContentLength = data.Length;
 
@@ -271,7 +271,7 @@ namespace CS_threescale
                 obj = (Hashtable)entri.Value;
 
                	app_id = (string)obj["app_id"];
-                user_key = (string)obj["user_key"];
+                string user_key = (string)obj["user_key"];
                 //client_ip = (string)obj["client_ip"];
                 timestamp = (string)obj["timestamp"];
                 usage = (Hashtable)obj["usage"];
