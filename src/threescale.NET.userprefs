@@ -1,8 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
   <MonoDevelop.Ide.Workbench ActiveDocument="CS_threescale/Api.cs">
     <Files>
-      <File FileName="CS_threescale/Api.cs" Line="102" Column="1" />
+      <File FileName="CS_threescale/Api.cs" Line="174" Column="5" />
+      <File FileName="CS_threescale/IApi.cs" Line="9" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

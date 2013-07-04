@@ -19,7 +19,6 @@ namespace CS_threescale
             this.authorized = tsc.authorized;
             this.usages = tsc.usages;
         }
-
         
         [XmlElement("plan")]
         public string plan;
@@ -30,14 +29,22 @@ namespace CS_threescale
         [XmlElement("authorized")]
         public bool authorized;
 
+		[XmlElement("application")]
+		public ApplicationItem application;
+
         [XmlArray("usage_reports"), XmlArrayItem("usage_report", typeof(UsageItem))]
         public System.Collections.ArrayList usages;
-
+		
         
         public int AddUsageItem(UsageItem usageitem) 
         {
             return usages.Add(usageitem);
         }
+
+		public string GetClientSecret ()
+		{
+			return application.clientsecret;
+		}
     }
 
 }  

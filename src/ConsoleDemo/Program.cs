@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CS_threescale;
 using System.Text;
 using System.Net;
+using System.Collections;
 
 namespace ConsoleDemo
 {
@@ -42,21 +43,36 @@ namespace ConsoleDemo
 
 
             try {
-                string provider_key = "YOUR_PROVIDER_KEY";
-                string app_id = "APP_ID_OF_THE_USER";
+				string provider_key = "YOUR_PROVIDER_KEY";
+				string app_id = "YOUR_APP_ID";
+				// string app_key = "YOUR_APP_KEY";
 
                 Api _3ScaleAPI = new Api("http://su1.3scale.net", provider_key);
 
-                AuthorizeResponse resp = _3ScaleAPI.authorize(app_id);
+				// Try authorize
+				Hashtable parameters = new Hashtable();
+				parameters.Add("app_id", app_id);
+
+                AuthorizeResponse resp = _3ScaleAPI.authorize(parameters);
 
                 print(resp);
 
                 Console.WriteLine("Done authorize...");
 
+				// Try authrep
+				System.Collections.Hashtable usage = new Hashtable();
+				usage.Add("hits", "1");
+				parameters.Add("usage", usage);
+
+				AuthorizeResponse authRepResp = _3ScaleAPI.authrep(parameters);
+
+				print(authRepResp);
+
+				Console.WriteLine("Done authrep");
+
+				// Try report
                 System.Collections.Hashtable transactions = new System.Collections.Hashtable();
                 System.Collections.Hashtable transaction = null;
-                System.Collections.Hashtable usage = null;
-
                 transaction = new System.Collections.Hashtable();
                 transaction.Add("app_id",app_id);
                 transaction.Add("timestamp", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss K"));
@@ -75,6 +91,13 @@ namespace ConsoleDemo
                 _3ScaleAPI.report(transactions);
 
                 Console.WriteLine("Done report...");
+
+				// Try oauth_authorize and report
+				AuthorizeResponse oAuthResp = _3ScaleAPI.oauth_authorize(parameters);
+				print(oAuthResp);
+				_3ScaleAPI.report(transactions);
+
+				Console.WriteLine("Done OAuth authorize and report");
             }
             catch (Exception e)
             {
@@ -82,7 +105,6 @@ namespace ConsoleDemo
             }
 
             string s = Console.ReadLine();
-
         }
     }
 
