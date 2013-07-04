@@ -1,7 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS_threescale", "CS_threescale\CS_threescale.csproj", "{9DD2CA53-C5B5-4FF6-92C0-B48AEB193580}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS_threescale_Test", "CS_threescale_Test\CS_threescale_Test.csproj", "{F08632FF-B3EA-40F5-89B7-CDF2043BCC86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +15,10 @@ Global
 		{9DD2CA53-C5B5-4FF6-92C0-B48AEB193580}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DD2CA53-C5B5-4FF6-92C0-B48AEB193580}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DD2CA53-C5B5-4FF6-92C0-B48AEB193580}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F08632FF-B3EA-40F5-89B7-CDF2043BCC86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F08632FF-B3EA-40F5-89B7-CDF2043BCC86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F08632FF-B3EA-40F5-89B7-CDF2043BCC86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F08632FF-B3EA-40F5-89B7-CDF2043BCC86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

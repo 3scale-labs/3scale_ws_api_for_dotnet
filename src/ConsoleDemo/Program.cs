@@ -7,11 +7,8 @@ using System.Collections;
 
 namespace ConsoleDemo
 {
-
-
     class Program
     {
-
         static void print(AuthorizeResponse ar)
         {
             if (ar.authorized) {
@@ -35,13 +32,10 @@ namespace ConsoleDemo
                 Console.WriteLine("     PeriodEnd:  " + item.period_start);
                 i++;
             }
-
         }
 
         static void Main(string[] args)
         {
-
-
             try {
 				string provider_key = "YOUR_PROVIDER_KEY";
 				string app_id = "YOUR_APP_ID";
@@ -56,7 +50,6 @@ namespace ConsoleDemo
                 AuthorizeResponse resp = _3ScaleAPI.authorize(parameters);
 
                 print(resp);
-
                 Console.WriteLine("Done authorize...");
 
 				// Try authrep
@@ -67,7 +60,6 @@ namespace ConsoleDemo
 				AuthorizeResponse authRepResp = _3ScaleAPI.authrep(parameters);
 
 				print(authRepResp);
-
 				Console.WriteLine("Done authrep");
 
 				// Try report
@@ -88,13 +80,15 @@ namespace ConsoleDemo
                 usage.Add("hits", 1);
                 transaction.Add("usage", usage);
                 transactions.Add("1", transaction);
-                _3ScaleAPI.report(transactions);
+                
+				_3ScaleAPI.report(transactions);
 
                 Console.WriteLine("Done report...");
 
 				// Try oauth_authorize and report
 				AuthorizeResponse oAuthResp = _3ScaleAPI.oauth_authorize(parameters);
 				print(oAuthResp);
+
 				_3ScaleAPI.report(transactions);
 
 				Console.WriteLine("Done OAuth authorize and report");
@@ -107,7 +101,4 @@ namespace ConsoleDemo
             string s = Console.ReadLine();
         }
     }
-
-
-
 }

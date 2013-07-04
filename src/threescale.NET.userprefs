@@ -1,10 +1,31 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="CS_threescale/Api.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="CS_threescale_Test/ApiTest.cs">
     <Files>
-      <File FileName="CS_threescale/Api.cs" Line="174" Column="5" />
-      <File FileName="CS_threescale/IApi.cs" Line="9" Column="6" />
+      <File FileName="CS_threescale_Test/ApiTest.cs" Line="15" Column="22" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="CS_threescale" expanded="True" selected="True" />
+          <Node name="CS_threescale_Test" expanded="True">
+            <Node name="References" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+      <Pad Id="ConnectionManagerPad">
+        <State selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
