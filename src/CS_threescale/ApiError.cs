@@ -21,20 +21,20 @@ namespace CS_threescale
             this.message = ae.message;
         }
 
-        public ApiError() { 
+        public ApiError()
+        { 
         }
-         
 
         [XmlAttribute("code")]
         public string code;
         [XmlText()]
         public string message;
-
     }
-   
+
     public class ApiException : Exception
     {
-        public ApiException(string message) : base(message) { }
+        public ApiException(string message) : base(message)
+        {
+        }
     }
-
 }

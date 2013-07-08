@@ -11,18 +11,21 @@ namespace ConsoleDemo
     {
         static void print(AuthorizeResponse ar)
         {
-            if (ar.authorized) {
+            if (ar.authorized)
+            {
                 Console.WriteLine("Authorized!!");
             }
-            else {
+            else
+            {
                 Console.WriteLine("NOT Authorized!!" + ar.reason);
             }
 
             Console.WriteLine("PLAN: " + ar.plan);
             Console.WriteLine("#usages: " + ar.usages.Count);
 
-            int i=0;
-            foreach( UsageItem item in ar.usages){
+            int i = 0;
+            foreach (UsageItem item in ar.usages)
+            {
                 Console.WriteLine("Usage: " + i);
                 Console.WriteLine("     Metric:     " + item.metric);
                 Console.WriteLine("     Period:     " + item.period);
@@ -36,41 +39,50 @@ namespace ConsoleDemo
 
         static void Main(string[] args)
         {
-            try {
-				string provider_key = "YOUR_PROVIDER_KEY";
-				string app_id = "YOUR_APP_ID";
-				// string app_key = "YOUR_APP_KEY";
+            try
+            {
+                //string provider_key = "6c8ad2ee6fd8471902b226283281583e";
+                //string app_id = "69eac0c8";
 
-                Api _3ScaleAPI = new Api("http://su1.3scale.net", provider_key);
+                string provider_key = "24e03d2127fd2089220d1bbc45a08ae3";
+                string service_id = "1006371741601";
+                string app_id = "802a6aaa";
+                string app_key = "b230a8663a9c367d0459651cc1661bf3";
 
-				// Try authorize
-				Hashtable parameters = new Hashtable();
-				parameters.Add("app_id", app_id);
+                Api _3ScaleAPI = new Api(provider_key);
+
+                // Try authorize
+                Hashtable parameters = new Hashtable();
+                parameters.Add("app_id", app_id);
+                parameters.Add("app_key", app_key);
+                parameters.Add("service_id", service_id);
+
+                System.Collections.Hashtable usage = new Hashtable();
+                usage.Add("hits", "1");
+                parameters.Add("usage", usage);
+
 
                 AuthorizeResponse resp = _3ScaleAPI.authorize(parameters);
 
                 print(resp);
                 Console.WriteLine("Done authorize...");
 
-				// Try authrep
-				System.Collections.Hashtable usage = new Hashtable();
-				usage.Add("hits", "1");
-				parameters.Add("usage", usage);
+                // Try authrep
 
-				AuthorizeResponse authRepResp = _3ScaleAPI.authrep(parameters);
+                AuthorizeResponse authRepResp = _3ScaleAPI.authrep(parameters);
 
-				print(authRepResp);
-				Console.WriteLine("Done authrep");
+                print(authRepResp);
+                Console.WriteLine("Done authrep");
 
-				// Try report
+                // Try report
                 System.Collections.Hashtable transactions = new System.Collections.Hashtable();
                 System.Collections.Hashtable transaction = null;
                 transaction = new System.Collections.Hashtable();
-                transaction.Add("app_id",app_id);
+                transaction.Add("app_id", app_id);
                 transaction.Add("timestamp", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss K"));
                 usage = new System.Collections.Hashtable();
                 usage.Add("hits", 10);
-                transaction.Add("usage",usage);
+                transaction.Add("usage", usage);
                 transactions.Add("0", transaction);
 
                 transaction = new System.Collections.Hashtable();
@@ -81,17 +93,23 @@ namespace ConsoleDemo
                 transaction.Add("usage", usage);
                 transactions.Add("1", transaction);
                 
-				_3ScaleAPI.report(transactions);
+                _3ScaleAPI.report(transactions);
 
                 Console.WriteLine("Done report...");
 
-				// Try oauth_authorize and report
-				AuthorizeResponse oAuthResp = _3ScaleAPI.oauth_authorize(parameters);
-				print(oAuthResp);
+                // Try oauth_authorize and report
+                AuthorizeResponse oAuthResp = _3ScaleAPI.oauth_authorize(parameters);
+                print(oAuthResp);
 
-				_3ScaleAPI.report(transactions);
-
-				Console.WriteLine("Done OAuth authorize and report");
+                if(oAuthResp.authorized)
+                {
+                    _3ScaleAPI.report(transactions);
+                    Console.WriteLine("Done OAuth authorize and report");
+                }
+                else
+                {
+                    Console.WriteLine("OAuth authorize called, report not done as not authorized");
+                }
             }
             catch (Exception e)
             {

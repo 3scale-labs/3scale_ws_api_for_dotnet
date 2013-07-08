@@ -33,6 +33,9 @@
     <Reference Include="nunit.framework">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\..\..\..\..\Downloads\Moq.4.0.10827\NET40\Moq.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiTest.cs" />
