@@ -9,6 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>CS_threescale_Test</RootNamespace>
     <AssemblyName>CS_threescale_Test</AssemblyName>
+    <ReleaseVersion>2.0.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,11 +35,12 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Moq">
-      <HintPath>..\..\..\..\..\Downloads\Moq.4.0.10827\NET40\Moq.dll</HintPath>
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiTest.cs" />
+    <Compile Include="Helpers\MockWebRequest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -46,5 +48,11 @@
       <Project>{9DD2CA53-C5B5-4FF6-92C0-B48AEB193580}</Project>
       <Name>CS_threescale</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helpers\" />
   </ItemGroup>
 </Project>

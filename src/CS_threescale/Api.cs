@@ -328,58 +328,5 @@ namespace CS_threescale
                 }
             }
         }
-
-        //        private void AddTransactions(ref string content, Hashtable transactions)
-        //        {
-        //            string app_id;
-        //			string service_id;
-        //            //string client_ip;
-        //            string timestamp;
-        //            Hashtable obj;
-        //            Hashtable usage;
-        //
-        //            foreach (DictionaryEntry entri in transactions) 
-        //            {
-        //                app_id = null;
-        //				service_id = null;
-        //                //client_ip = null;
-        //                timestamp = null;
-        //                obj = null;
-        //                usage = null;
-        //
-        //                obj = (Hashtable)entri.Value;
-        //
-        //               	app_id = (string)obj["app_id"];
-        //                string user_key = (string)obj["user_key"];
-        //                //client_ip = (string)obj["client_ip"];
-        //                timestamp = (string)obj["timestamp"];
-        //                usage = (Hashtable)obj["usage"];
-        //
-        //                //if ((app_id == null) || (app_id.Length <= 0)) throw new ApiException("argument error: undefined transaction, app_id is missing in one record");
-        //                if ((usage == null) || (usage.Count <= 0)) throw new ApiException("argument error: undefined transaction, usage is missing in one record");
-        //
-        //				// Why are we clearing the TS here?!
-        //                if (!string.IsNullOrEmpty(timestamp)) timestamp=null;
-        //                
-        //                if (!string.IsNullOrEmpty(app_id)) {
-        //                    content = content + string.Format("&transactions[{0}][{1}]={2}",entri.Key,"app_id",app_id);
-        //                }
-        //				
-        //                if (!string.IsNullOrEmpty(user_key)) {
-        //                    content = content + string.Format("&transactions[{0}][{1}]={2}",entri.Key,"user_key",user_key);
-        //                }
-        //
-        //				if (!string.IsNullOrEmpty(service_id)) {
-        //					content = content + string.Format("&transactions[{0}][{1}]={2}",entri.Key,"service_id",service_id);
-        //				}
-        //
-        //                if (timestamp!=null) content = content + string.Format("&transactions[{0}][{1}]={2}",entri.Key,"timestamp",timestamp);
-        //
-        //                foreach (DictionaryEntry entri_usage in usage) 
-        //                {
-        //                    content = content + string.Format("&transactions[{0}][{1}][{2}]={3}",entri.Key,"usage",entri_usage.Key,entri_usage.Value);
-        //                }
-        //            }
-        //        }
     }
 }
