@@ -1,9 +1,11 @@
+[![Build Status](https://secure.travis-ci.org/3scale/3scale_ws_api_for_dotnet.png?branch=master)](http://travis-ci.org/3scale/3scale_ws_api_for_dotnet)
+
 3scale is an API Infrastructure service which handles API Keys, Rate Limiting, Analytics, Billing Payments and Developer Management. Includes a configurable API dashboard and developer portal CMS. More product stuff at http://www.3scale.net/, support information at http://support.3scale.net/.
 
 Plugin Versions
 ===============
 
-?
+This is version 2.0.0 of the plugin, if you were using this plugin before July 10th 2013, you are using the old [version 1.0.0](https://github.com/3scale/3scale_ws_api_for_dotnet/tree/v1.0.0) of it, but we strongly recommend you to port your code to this new version which contains more features.
 
 Synopsis
 ========

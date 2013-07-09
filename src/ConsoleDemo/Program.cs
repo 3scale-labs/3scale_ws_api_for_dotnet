@@ -41,21 +41,32 @@ namespace ConsoleDemo
         {
             try
             {
-                //string provider_key = "6c8ad2ee6fd8471902b226283281583e";
-                //string app_id = "69eac0c8";
+                string provider_key = "YOUR_PROVIDER_KEY";
 
-                string provider_key = "24e03d2127fd2089220d1bbc45a08ae3";
-                string service_id = "1006371741601";
-                string app_id = "802a6aaa";
-                string app_key = "b230a8663a9c367d0459651cc1661bf3";
+                // If needed, add your service_id
+                //string service_id = "YOUR_SERVICE_ID";
+
+                // Authorise using app_id (and app_key if necessary)
+                string app_id = "YOUR_APP_ID";
+                string app_key = "YOUR_APP_KEY";
+
+                // Or alternatively you can authorise using user_key
+                // string user_key = "YOUR_USER_KEY"
+
 
                 Api _3ScaleAPI = new Api(provider_key);
 
                 // Try authorize
                 Hashtable parameters = new Hashtable();
+                // Add service_id if needed
+                //parameters.Add("service_id", service_id);
+
+                // Add app_id (and app_key if necessary) to list of parameters to send
                 parameters.Add("app_id", app_id);
                 parameters.Add("app_key", app_key);
-                parameters.Add("service_id", service_id);
+
+                // Alternatively, add user_key to list of parameters to send
+                //parameters.Add("user_key", user_key);
 
                 System.Collections.Hashtable usage = new Hashtable();
                 usage.Add("hits", "1");
