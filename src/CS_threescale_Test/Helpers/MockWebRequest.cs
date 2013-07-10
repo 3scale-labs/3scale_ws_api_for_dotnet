@@ -1,80 +1,33 @@
 using System;
 using System.Net;
-using Moq;
+using System.IO;
 
 namespace CS_threescale_Test
 {
-    /// <summary>
-    /// A custom implementation of IWebRequestCreate for Web Requests.
-    /// </summary>
-    /// <summary>A web request creator for unit testing.</summary>
-    public class MockWebRequestCreate : IWebRequestCreate
+    public class MockWebRequest : WebRequest
     {
-        /// <summary>
-        /// The web request.
-        /// </summary>
-        private static WebRequest nextRequest;
+        MemoryStream requestStream = new MemoryStream();
 
-        /// <summary>
-        /// Internally held lock object for multi-threading support.
-        /// </summary>
-        private static object lockObject = new object();
+        MemoryStream responseStream;
 
-        /// <summary>
-        /// Gets or sets the next request object.
-        /// </summary>
-        public static WebRequest NextRequest
+        public MockWebRequest()
         {
-            get
-            {
-                return nextRequest;
-            }
-
-            set
-            {
-                lock (lockObject)
-                {
-                    nextRequest = value;
-                }
-            }
+            responseStream = new MemoryStream();
         }
 
-        /// <summary>
-        /// Creates the new instance of the CustomWebRequest.
-        /// </summary>
-        /// <param name="uri">The given Uri</param>
-        /// <returns>An instantiated web request object requesting from the given Uri.</returns>
-        public WebRequest Create(Uri uri)
+        public string ContentAsString()
         {
-            return nextRequest;
+            return System.Text.Encoding.UTF8.GetString(requestStream.ToArray());
         }
 
-        /// <summary>
-        /// Creates a Mock Http Web request
-        /// </summary>
-        /// <returns>The mocked HttpRequest object</returns>
-        public static HttpWebRequest CreateMockHttpWebRequestWithGivenResponseCode(HttpStatusCode httpStatusCode)
+        public override Stream GetRequestStream()
         {
-            var response = new Mock<HttpWebResponse>(MockBehavior.Loose);
-            response.Setup(c => c.).Returns(httpStatusCode);
-
-            var request = new Mock<HttpWebRequest>();
-            request.Setup(s => s.GetResponse()).Returns(response.Object);
-            NextRequest = request.Object;
-
-            return request.Object;
+            return requestStream;
         }
 
-        public static HttpWebRequest CreateMockHttpWebRequest()
+        public override WebResponse GetResponse()
         {
-            var response = new Mock<HttpWebResponse>(MockBehavior.Loose);
-            response.Setup(c => c.Status ).Returns();
-
-            var request = new Mock<HttpWebRequest>();
-            request.Setup(s => s.GetResponse()).Returns(response.Object);
-            NextRequest = request.Object;
-
-            return request.Object;
+            return new MockWebResponse(responseStream);
         }
     }
 }

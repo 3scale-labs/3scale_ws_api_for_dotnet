@@ -5,6 +5,9 @@ before_install:
   # pipe stdout to dev/null because qq is still too chatty
   - sudo apt-get update -qq > /dev/null
   - sudo apt-get install -qq mono-devel > /dev/null
-
+  
+env:
+  - EnableNuGetPackageRestore=true
+  
 script:
   - xbuild src/threescale.NET.sln

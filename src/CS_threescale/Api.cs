@@ -192,11 +192,11 @@ namespace CS_threescale
 
             URL += content;
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+            var request = WebRequest.Create(URL);
 
             try
             {
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (var response = request.GetResponse())
                 {
                     Stream s = response.GetResponseStream();
                     List<byte> st = new List<byte>();
@@ -208,7 +208,7 @@ namespace CS_threescale
                     byte[] b = st.ToArray();
                     st.Clear();
 
-                    switch (response.StatusCode)
+                    switch (((HttpWebResponse)response).StatusCode)
                     {
                         case HttpStatusCode.OK:
                             AuthorizeResponse auth_response = new AuthorizeResponse(Encoding.UTF8.GetString(b));

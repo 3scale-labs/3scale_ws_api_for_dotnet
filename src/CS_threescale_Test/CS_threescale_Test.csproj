@@ -40,7 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiTest.cs" />
+    <Compile Include="Helpers\MockWebRequestCreate.cs" />
     <Compile Include="Helpers\MockWebRequest.cs" />
+    <Compile Include="Helpers\MockWebResponse.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
