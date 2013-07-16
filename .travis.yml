@@ -4,10 +4,11 @@ before_install:
     # Make sure mono is installed,
     # pipe stdout to dev/null because qq is still too chatty
     - sudo apt-get update -qq > /dev/null
-    - sudo apt-get install -qq mono-devel > /dev/null
+    - sudo apt-get install -qq mono-devel nunit-console > /dev/null
 
 env:
     - EnableNuGetPackageRestore=true
 
 script:
     - xbuild src/threescale.NET.sln
+    - nunit-console src/CS_threescale_Test/bin/Debug/CS_threescale_Test.dll

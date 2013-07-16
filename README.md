@@ -210,7 +210,6 @@ static void print(AuthorizeResponse resp)
 }
 ```
 
-
 You can also call *report* to report traffic on your API: 
 
 ```csharp
@@ -318,7 +317,7 @@ To test
 To test the plugin with your real data:
 
 - Open up the [ConsoleDemo](https://github.com/3scale/3scale_ws_api_for_dotnet/tree/master/src/ConsoleDemo) project 
-- Edit Main function in [Program](https://github.com/3scale/3scale_ws_api_for_dotnet/blob/master/src/ConsoleDemo/Program.cs) with your provider key and app id.
+- Edit Main function in [Program](https://github.com/3scale/3scale_ws_api_for_dotnet/blob/master/src/ConsoleDemo/Program.cs) with your provider key and app id (or user_key if you are using that instead.)
 - Run Program.cs
 
 Legal
