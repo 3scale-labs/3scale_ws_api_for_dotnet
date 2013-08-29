@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS_threescale_Test", "CS_threescale_Test.csproj", "{F08632FF-B3EA-40F5-89B7-CDF2043BCC86}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F08632FF-B3EA-40F5-89B7-CDF2043BCC86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F08632FF-B3EA-40F5-89B7-CDF2043BCC86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F08632FF-B3EA-40F5-89B7-CDF2043BCC86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F08632FF-B3EA-40F5-89B7-CDF2043BCC86}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = CS_threescale_Test.csproj
+	EndGlobalSection
+EndGlobal

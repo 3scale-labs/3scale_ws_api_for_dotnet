@@ -29,7 +29,7 @@ namespace CS_threescale
             }
             catch
             {
-                throw new IOException("Unknown format " + xmlString );
+                throw new IOException("Unknown format " + xmlString);
             }
           
         }
