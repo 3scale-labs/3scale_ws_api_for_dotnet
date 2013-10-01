@@ -5,7 +5,7 @@
 Plugin Versions
 ===============
 
-This is version 2.0.0 of the plugin, if you were using this plugin before July 10th 2013, you are using the old [version 1.0.0](https://github.com/3scale/3scale_ws_api_for_dotnet/tree/v1.0.0) of it, but we strongly recommend you to port your code to this new version which contains more features.
+This is version 2.0.0 of the plugin, if you were using this plugin before October 1st 2013, you are using the old [version 0.1.3](https://github.com/3scale/3scale_ws_api_for_dotnet/releases/tag/v0.1.3) of it, but we strongly recommend you to port your code to this new version which contains more features.
 
 Synopsis
 ========
