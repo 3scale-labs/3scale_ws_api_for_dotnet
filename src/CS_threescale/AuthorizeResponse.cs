@@ -20,6 +20,7 @@ namespace CS_threescale
             this.reason = tsc.reason;
             this.authorized = tsc.authorized;
             this.usages = tsc.usages;
+            this.application = tsc.application;
         }
 
         [XmlElement("plan")]

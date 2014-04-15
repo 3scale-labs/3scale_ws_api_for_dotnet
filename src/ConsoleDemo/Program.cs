@@ -51,7 +51,7 @@ namespace ConsoleDemo
                 string app_key = "YOUR_APP_KEY";
 
                 // Or alternatively you can authorise using user_key
-                // string user_key = "YOUR_USER_KEY"
+                // string user_key = "YOUR_USER_KEY";
 
                 Api _3ScaleAPI = new Api(provider_key);
 
@@ -89,6 +89,7 @@ namespace ConsoleDemo
                 System.Collections.Hashtable transaction = null;
                 transaction = new System.Collections.Hashtable();
                 transaction.Add("app_id", app_id);
+                //transaction.Add("user_key", user_key);
                 usage = new System.Collections.Hashtable();
                 usage.Add("hits", 10);
                 transaction.Add("usage", usage);
@@ -96,6 +97,7 @@ namespace ConsoleDemo
 
                 transaction = new System.Collections.Hashtable();
                 transaction.Add("app_id", app_id);
+                //transaction.Add("user_key", user_key);
                 usage = new System.Collections.Hashtable();
                 usage.Add("hits", 1);
                 transaction.Add("usage", usage);
