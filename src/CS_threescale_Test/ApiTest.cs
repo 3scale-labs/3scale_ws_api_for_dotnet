@@ -258,7 +258,7 @@ namespace CS_threescale_Test
         }
 
         [Test]
-        public void TestRepoxamrtWithNoUsage()
+        public void TestReportWithNoUsage()
         {
             m_api = new Api(host, provider_key);
 
