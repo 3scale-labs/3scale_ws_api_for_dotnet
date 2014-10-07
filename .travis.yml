@@ -4,7 +4,8 @@ before_install:
     # Make sure mono is installed,
     # pipe stdout to dev/null because qq is still too chatty
     - sudo apt-get update -qq > /dev/null
-    - sudo apt-get install -qq mono-devel nunit-console > /dev/null
+    - sudo apt-get install -qq mono-devel mono-gmcs nunit-console=2.4.8 > /dev/null
+    - mozroots --import --sync
 
 env:
     - EnableNuGetPackageRestore=true
