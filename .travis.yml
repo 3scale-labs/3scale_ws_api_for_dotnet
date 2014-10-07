@@ -11,5 +11,5 @@ before_install:
  - sudo installer -pkg "MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg" -target /
 
 script:
- - xbuild 
+ - xbuild src/threescale.NET.sln
  - .ci/nunit.sh Tests/bin/Debug/Tests.dll
