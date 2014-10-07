@@ -2,7 +2,8 @@ language: objective-c
 
 env:
  global:
-  - EnableNuGetPackageRestore=true 
+  - EnableNuGetPackageRestore=true
+  - NUNIT_VERSION="2.6.3"
  matrix:
   - MONO_VERSION="3.8.0"
 
@@ -10,6 +11,12 @@ before_install:
  - wget "http://download.mono-project.com/archive/${MONO_VERSION}/macos-10-x86/MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg"
  - sudo installer -pkg "MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg" -target /
 
+install:
+  - wget -nv --no-check-certificate "https://launchpad.net/nunitv2/trunk/${NUNIT_VERSION}/+download/NUnit-${NUNIT_VERSION}.zip"
+  - unzip -qq "NUnit-${NUNIT_VERSION}.zip"
+
 script:
  - xbuild src/threescale.NET.sln
- - .ci/nunit.sh src/CS_threescale_Test/bin/Debug/CS_threescale_Test.dll
+ - cp -f "../NUnit-${NUNIT_VERSION}/bin/framework/nunit.framework.dll" build/.
+ - cd build
+ - MONO_PATH=. PEVERIFY=false mono --runtime=v4.0 --gc=boehm "../../NUnit-${NUNIT_VERSION}/bin/nunit-console.exe" -framework=4.0 -stoponerror -nologo -timeout=10000 -noresult -output=stdout.txt -domain=none -exclude=FailsOnMono *.Tests.dll
