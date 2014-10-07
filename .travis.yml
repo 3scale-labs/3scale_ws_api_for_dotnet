@@ -12,4 +12,4 @@ before_install:
 
 script:
  - xbuild src/threescale.NET.sln
- - .ci/nunit.sh Tests/bin/Debug/Tests.dll
+ - .ci/nunit.sh src/CS_threescale_Test/bin/Debug/CS_threescale_Test.dll
