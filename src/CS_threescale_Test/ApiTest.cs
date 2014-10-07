@@ -2,7 +2,6 @@ using System;
 using NUnit.Framework;
 using CS_threescale;
 using System.Net;
-using Moq;
 using System.Collections;
 
 namespace CS_threescale_Test

@@ -1,6 +1,5 @@
 using System;
 using System.Net;
-using Moq;
 
 namespace CS_threescale_Test
 {
