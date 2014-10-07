@@ -1,14 +1,15 @@
-language: c
-
-before_install:
-    # Make sure mono is installed,
-    # pipe stdout to dev/null because qq is still too chatty
-    - sudo apt-get update -qq > /dev/null
-    - sudo apt-get install -qq mono-devel nunit-console > /dev/null
+language: objective-c
 
 env:
-    - EnableNuGetPackageRestore=true
+ global:
+  - EnableNuGetPackageRestore=true 
+ matrix:
+  - MONO_VERSION="3.8.0"
+
+before_install:
+ - wget "http://download.mono-project.com/archive/${MONO_VERSION}/macos-10-x86/MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg"
+ - sudo installer -pkg "MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg" -target /
 
 script:
-    - xbuild src/threescale.NET.sln
-    - nunit-console src/CS_threescale_Test/bin/Debug/CS_threescale_Test.dll
+ - xbuild 
+ - .ci/nunit.sh Tests/bin/Debug/Tests.dll
