@@ -3,13 +3,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{F08632FF-B3EA-40F5-89B7-CDF2043BCC86}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>CS_threescale_Test</RootNamespace>
     <AssemblyName>CS_threescale_Test</AssemblyName>
-    <ReleaseVersion>2.0.0</ReleaseVersion>
+    <ReleaseVersion>2.0.1</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,10 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="nunit.framework">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Moq">
-      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -52,9 +49,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Helpers\" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

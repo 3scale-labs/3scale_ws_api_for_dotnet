@@ -2,7 +2,6 @@ using System;
 using NUnit.Framework;
 using CS_threescale;
 using System.Net;
-using Moq;
 using System.Collections;
 
 namespace CS_threescale_Test
@@ -11,11 +10,12 @@ namespace CS_threescale_Test
     public class ApiTest
     {
         private IApi m_api;
-        private readonly string host = "http://su1.3scale.net";
+        private readonly string host = "https://abeb0cd3-4838526e0f49.my.apitools.com";
+        private readonly string backend = "https://su1.3scale.net";
 
-        private readonly string provider_key = "05273bcb282d1d4faafffeb01e224db0";
-        private readonly string app_key = "3e05c797ef193fee452b1ddf19defa74";
-        private readonly string app_id ="75165984";
+        private readonly string provider_key = "ae4c4d4fc1c17ae24421e05f9d79cfd4";
+        private readonly string app_key = "d1d34f3f7eda867cf4c8491c0e0d0c9a";
+        private readonly string app_id ="8fa116d4";
 
         private readonly string invalid_provider_key = "InvalidProviderKey";
         private readonly string invalid_app_id = "InvalidAppId";
@@ -25,7 +25,7 @@ namespace CS_threescale_Test
         public void TestDefaultHost()
         {
             m_api = new Api();
-            Assert.AreEqual(host, m_api.HostURI);
+            Assert.AreEqual(backend, m_api.HostURI);
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace CS_threescale_Test
         [Test]
         public void TestAuthrepWithValidCredentials()
         {
-            m_api = new Api(provider_key);
+            m_api = new Api(host, provider_key);
 
             Hashtable parameters = new Hashtable();
 
@@ -55,7 +55,7 @@ namespace CS_threescale_Test
         [Test]
         public void TestAuthrepWithInvalidProviderKey()
         {
-            m_api = new Api(invalid_provider_key);
+            m_api = new Api(host, invalid_provider_key);
 
             Hashtable parameters = new Hashtable();
 
@@ -69,7 +69,7 @@ namespace CS_threescale_Test
         [Test]
         public void TestAuthrepWithInvalidAppId()
         {
-            m_api = new Api(provider_key);
+            m_api = new Api(host, provider_key);
 
             Hashtable parameters = new Hashtable();
 
@@ -83,7 +83,7 @@ namespace CS_threescale_Test
         [Test]
         public void TestAuthrepWithInvalidAppKey()
         {
-            m_api = new Api(provider_key);
+            m_api = new Api(host, provider_key);
 
             var parameters = new Hashtable();
 
@@ -99,7 +99,7 @@ namespace CS_threescale_Test
         [Test]
         public void TestAuthrepWithMissingAppKey()
         {
-            m_api = new Api(provider_key);
+            m_api = new Api(host, provider_key);
 
             var parameters = new Hashtable();
 
@@ -114,7 +114,7 @@ namespace CS_threescale_Test
         [Test]
         public void TestAuthRepWithInvalidMetric()
         {
-            m_api = new Api(provider_key);
+            m_api = new Api(host, provider_key);
 
             Hashtable parameters = new Hashtable();
 
@@ -136,7 +136,7 @@ namespace CS_threescale_Test
         [Test]
         public void TestAuthorizeWithValidCredentials()
         {
-            m_api = new Api(provider_key);
+            m_api = new Api(host, provider_key);
 
             Hashtable parameters = new Hashtable();
 
@@ -152,7 +152,7 @@ namespace CS_threescale_Test
         [Test]
         public void TestAuthorizeWithInvalidProviderKey()
         {
-            m_api = new Api(invalid_provider_key);
+            m_api = new Api(host, invalid_provider_key);
 
             Hashtable parameters = new Hashtable();
 
@@ -166,7 +166,7 @@ namespace CS_threescale_Test
         [Test]
         public void TestAuthorizeWithInvalidAppId()
         {
-            m_api = new Api(provider_key);
+            m_api = new Api(host, provider_key);
 
             Hashtable parameters = new Hashtable();
 
@@ -180,7 +180,7 @@ namespace CS_threescale_Test
         [Test]
         public void TestAuthorizeResponsePlan()
         {
-            m_api = new Api(provider_key);
+            m_api = new Api(host, provider_key);
 
             Hashtable parameters = new Hashtable();
 
@@ -189,13 +189,13 @@ namespace CS_threescale_Test
 
             var resp = m_api.authorize(parameters);
 
-            Assert.AreEqual("Testing", resp.plan);
+            Assert.AreEqual("Basic", resp.plan);
         }
 
         [Test]
         public void TestAuthorizeResponseUsageReport()
         {
-            m_api = new Api(provider_key);
+            m_api = new Api(host, provider_key);
 
             Hashtable parameters = new Hashtable();
 
@@ -215,7 +215,7 @@ namespace CS_threescale_Test
         [Test]
         public void TestReportWithInvalidProviderKey()
         {
-            m_api = new Api(invalid_provider_key);
+            m_api = new Api(host, invalid_provider_key);
 
             Hashtable transactions = new Hashtable();
             Hashtable transaction = null;
@@ -235,7 +235,7 @@ namespace CS_threescale_Test
         [Test]
         public void TestReportWithNoTransactions()
         {
-            m_api = new Api(provider_key);
+            m_api = new Api(host, provider_key);
 
             Hashtable transactions = new Hashtable();
 
@@ -246,7 +246,7 @@ namespace CS_threescale_Test
         [Test]
         public void TestReportWithEmptyTransaction()
         {
-            m_api = new Api(provider_key);
+            m_api = new Api(host, provider_key);
 
             Hashtable transactions = new Hashtable();
             Hashtable transaction = new Hashtable();
@@ -259,7 +259,7 @@ namespace CS_threescale_Test
         [Test]
         public void TestReportWithNoUsage()
         {
-            m_api = new Api(provider_key);
+            m_api = new Api(host, provider_key);
 
             Hashtable transactions = new Hashtable();
             Hashtable transaction = new Hashtable();

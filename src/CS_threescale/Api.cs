@@ -13,10 +13,11 @@ namespace CS_threescale
         string provider_key;
         string hostURI;
         const string contentType = "application/x-www-form-urlencoded";
+        string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public Api()
         {
-            hostURI = "http://su1.3scale.net";
+            hostURI = "https://su1.3scale.net";
         }
 
         public Api(string provider_key):this()
@@ -71,7 +72,8 @@ namespace CS_threescale
 
             string URL = hostURI + "/transactions.xml";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
-          
+            request.Headers.Add("X-3scale-User-Agent", "plugin-dotnet-v" + version);
+
             request.ContentType = contentType;
             request.Method = "POST";
             string content = "provider_key=" + provider_key;
@@ -193,6 +195,7 @@ namespace CS_threescale
             URL += content;
 
             var request = WebRequest.Create(URL);
+            request.Headers.Add("X-3scale-User-Agent", "plugin-dotnet-v" + version);
 
             try
             {
