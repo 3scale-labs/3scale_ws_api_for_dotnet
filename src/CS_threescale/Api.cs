@@ -17,7 +17,7 @@ namespace CS_threescale
 
         public Api()
         {
-            hostURI = "https://su1.3scale.net";
+            hostURI = "https://su1.3scale.net:443";
         }
 
         public Api(string provider_key):this()
