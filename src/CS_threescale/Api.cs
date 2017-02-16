@@ -76,89 +76,70 @@ namespace CS_threescale
 
             request.ContentType = contentType;
             request.Method = "POST";
-            string content = "provider_key=" + provider_key;
+
+            string content;
+            //Check we have a service_token or provider_key 
+
+            if (String.IsNullOrEmpty (provider_key) && !transactions.ContainsKey ("service_token")) {
+                throw new ApiException ("You need to set either a provider_key or service_token");
+            } else {
+                content = String.IsNullOrEmpty (provider_key) ? "" : "provider_key=" + provider_key;
+            }
 
             AddTransactions(ref content, transactions);
 
             Console.WriteLine("content: " + content);
-            
-            byte[] data = Encoding.UTF8.GetBytes(content);
-            request.ContentLength = data.Length;
 
-            try
-            {
+            byte [] data = Encoding.UTF8.GetBytes (content);
+
+            try{
                 request.ContentLength = data.Length;
-                Stream str = request.GetRequestStream();
-                str.Write(data, 0, data.Length);
+                Stream str = request.GetRequestStream ();
+                str.Write (data, 0, data.Length);
 
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                {
-                    Stream s = response.GetResponseStream();
-                    List<byte> st = new List<byte>();
-                    int ct = 0;
-                    while ((ct = s.ReadByte()) != -1)
-                    {
-                        st.Add((byte)ct);
+                using (var response = request.GetResponse ()) {
+                    switch (((HttpWebResponse)response).StatusCode) {
+                    case HttpStatusCode.OK:
+                        return;
+                    case HttpStatusCode.Accepted:
+                        return;
                     }
-                    byte[] b = st.ToArray();
-                    st.Clear();
-
-                    //Console.WriteLine(".--------------- " + response.StatusCode + " :::: " + HttpStatusCode.OK);
-                    
-                    switch (response.StatusCode)
-                    {
-                        case HttpStatusCode.OK:
-                            s.Close();
-                            return;
-                        case HttpStatusCode.Accepted:
-                            s.Close();
-                            return;
-
-                    }
-                    s.Close();
                 }
             }
-            catch (WebException w)
-            {
-                if (w.Response == null)
-                    throw w;
+            catch (WebException w){
+                using (WebResponse response = w.Response) {
+                    using (var streamReader = new StreamReader (response.GetResponseStream ())) {
+                        ApiError err = null;
+                        string err_msg = streamReader.ReadToEnd ();
+                        try 
+                        {
+                            err = new ApiError (err_msg);
+                        } catch (Exception) {
+                            err = null;
+                        }
 
-                Stream s = w.Response.GetResponseStream();
-                byte[] b = new byte[s.Length];
-                s.Read(b, 0, b.Length);
-                ApiError err = null;
+                        if (err != null)
+                            throw new ApiException (err.code + " : " + err.message);
 
-                try
-                {
-                    err = new ApiError(Encoding.UTF8.GetString(b));
-                }
-                catch (Exception)
-                {
-                    err = null;
-                }
+                        switch (((HttpWebResponse)w.Response).StatusCode) {
+                        case HttpStatusCode.Forbidden:
+                            throw new ApiException ("Forbidden");
 
-                if (err != null)
-                    throw new ApiException(err.code + " : " + err.message);
+                        case HttpStatusCode.BadRequest:
+                            throw new ApiException ("Bad request");
 
-                switch (((HttpWebResponse)w.Response).StatusCode)
-                {
-                    case HttpStatusCode.Forbidden:
-                        throw new ApiException("Forbidden");
+                        case HttpStatusCode.InternalServerError:
+                            throw new ApiException ("Internal server error");
 
-                    case HttpStatusCode.BadRequest:
-                        throw new ApiException("Bad request");
+                        case HttpStatusCode.NotFound:
+                            throw new ApiException ("Request route not found");
 
-                    case HttpStatusCode.InternalServerError:
-                        throw new ApiException("Internal server error");
-
-                    case HttpStatusCode.NotFound:
-                        throw new ApiException("Request route not found");
-
-                    default:
-                        throw new ApiException("Unknown Exception: " + Encoding.UTF8.GetString(b));
+                        default:
+                            throw new ApiException ("Unknown Exception: " + err_msg);
+                        }
+                    }
                 }
             }
-
             return;
         }
 
@@ -201,70 +182,53 @@ namespace CS_threescale
             {
                 using (var response = request.GetResponse())
                 {
-                    Stream s = response.GetResponseStream();
-                    List<byte> st = new List<byte>();
-                    int ct = 0;
-                    while ((ct = s.ReadByte()) != -1)
-                    {
-                        st.Add((byte)ct);
-                    }
-                    byte[] b = st.ToArray();
-                    st.Clear();
+                    using (var streamReader = new StreamReader (response.GetResponseStream ())) {
 
-                    switch (((HttpWebResponse)response).StatusCode)
-                    {
+                        switch (((HttpWebResponse)response).StatusCode) {
                         case HttpStatusCode.OK:
-                            AuthorizeResponse auth_response = new AuthorizeResponse(Encoding.UTF8.GetString(b));
-                            s.Close();
+                            string msg = streamReader.ReadToEnd ();
+                            AuthorizeResponse auth_response = new AuthorizeResponse (msg);
                             return auth_response;
+                        }
                     }
-                    s.Close();
                 }
             }
             catch (WebException w)
             {
-                if (w.Response == null)
-                    throw w;
+                using (WebResponse response = w.Response) {
+                    using (var streamReader = new StreamReader (response.GetResponseStream ())) {
+                        ApiError err = null;
+                        string err_msg = streamReader.ReadToEnd ();
+                        try {
+                            err = new ApiError (err_msg);
+                        } catch (Exception) {
+                            err = null;
+                        }
 
-                Stream s = w.Response.GetResponseStream();
-                byte[] b = new byte[s.Length];
-                s.Read(b, 0, b.Length);
-                s.Close();
+                        if (err != null)
+                            throw new ApiException (err.code + " : " + err.message);
 
-                ApiError err = null;
+                        switch (((HttpWebResponse)w.Response).StatusCode) {
+                        case HttpStatusCode.Forbidden:
+                            throw new ApiException ("Forbidden");
 
-                try
-                {
-                    err = new ApiError(Encoding.UTF8.GetString(b));
-                }
-                catch (Exception)
-                {
-                    err = null;
-                }
+                        case HttpStatusCode.BadRequest:
+                            throw new ApiException ("Bad request");
 
-                if (err != null)
-                    throw new ApiException(err.code + " : " + err.message);
+                        case HttpStatusCode.InternalServerError:
+                            throw new ApiException ("Internal server error");
 
-                switch (((HttpWebResponse)w.Response).StatusCode)
-                {
-                    case HttpStatusCode.Forbidden:
-                        throw new ApiException("Forbidden");
+                        case HttpStatusCode.NotFound:
+                            throw new ApiException ("Request route not found");
 
-                    case HttpStatusCode.BadRequest:
-                        throw new ApiException("Bad request");
+                        case HttpStatusCode.Conflict:
+                            AuthorizeResponse auth_response = new AuthorizeResponse (err_msg);
+                            return auth_response;
 
-                    case HttpStatusCode.InternalServerError:
-                        throw new ApiException("Internal server error");
-
-                    case HttpStatusCode.NotFound:
-                        throw new ApiException("Request route not found");
-
-                    case HttpStatusCode.Conflict:
-                        AuthorizeResponse auth_response = new AuthorizeResponse(Encoding.UTF8.GetString(b));
-                        return auth_response;
-
-                    default:
-                        throw new ApiException("Unknown Exception: " + Encoding.UTF8.GetString(b));
+                        default:
+                            throw new ApiException ("Unknown Exception: " + err_msg);
+                        }
+                    }
                 }
             }
 
