@@ -1,15 +1,17 @@
-language: c
-
-before_install:
-    # Make sure mono is installed,
-    # pipe stdout to dev/null because qq is still too chatty
-    - sudo apt-get update -qq > /dev/null
-    - sudo apt-get install -qq mono-devel mono-gmcs nunit-console > /dev/null
-    - mozroots --import --sync
-
+language: csharp
+solution: src/threescale.NET.sln
+install:
+- nuget restore src/threescale.NET.sln
+- nuget install NUnit.Runners -Version 3.2.0 -OutputDirectory testrunner
 env:
-    - EnableNuGetPackageRestore=true
-
+  matrix:
+  - EnableNuGetPackageRestore=true
+  global:
+  - secure: Vydwvo1hTtQh+oqvgr5BUUuYkF5M/jcQJVgbn6A8v2AarbMixi4gjplmJqX502ga0PnH7tZP2D2NTOK5VTAh72FUhBI0PTOnk4AVClCyrF4bMPSOHARBz0ePFDiBrfLCZXD1Kh5D5/QAddttj3405/BouxaSMLFPg9HZGyk2Lhk=
+  - secure: LlI+zXAV6TD3vg4CH12vIgmxFEkq9wr9e4dPs9uESf09UVuA1dVZVW5PDu2HrhMpRQDh8UWRgdz8kYxJ5FGLvIR9SzIhxfmd7H3QZqBdeMP9mXA1bF2TD23fwjgyfkxEb4PoIlB7tX+cIbGS1TUEBm5GCmKwg/CUQ78NjnuCySA=
+  - secure: aafCnEdAK56nkIHFmkEviGIwg6vmklrPg60zrazwnB6Cvgi1VhtMxzo5fKPRPXmFMc3WjLAMzQyp0rzeQHdQPHgyN8izbCQEDaVlov6qvyd7hEGM5bqpsY7YYAw+GgdUUiPHZ6qA5X+ezKYKnMlJZJqNf9bdiM8ajiVY8xMU57o=
+  - secure: bZahbx5dEgy+/fKRzqTmHCxMhq9RsYeQ2Qh7oiR5M1rCn2iLZ/R4hrDE/iCq7+yXeTN6E3AMNU8Vk5OIUzdUsVYn1fSdHbc7q5Ns+UpVcHz3sWbBuim+xHKPZPXVhNeA2o64uoOGUAmZPR4CFRSlQIvXK+IErR1wwAQ6A2SDmhU=
+  - secure: HFQlOYMWllos4DlCsbHmAizESheI0eeNN65w5crfMJn7b5rorddiYpjXMN4I3DXh0zCCF4l45IH229CuGL/1tWSA1a+5L/lv3hDsdVfCZLNRtNtqBiHxm3IWDUlqq+Bh21qy+tTar1AEgipsMjDGNePrW6c1+ulDisGJM7dtlbA=
 script:
-    - xbuild src/threescale.NET.sln
-    - nunit-console src/CS_threescale_Test/bin/Debug/CS_threescale_Test.dll
+- xbuild /p:Configuration=Release src/threescale.NET.sln
+- mono ./testrunner/NUnit.ConsoleRunner.3.2.0/tools/nunit3-console.exe src/CS_threescale_Test/bin/Release/CS_threescale_Test.dll
