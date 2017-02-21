@@ -189,7 +189,8 @@ Global
 		$30.inheritsSet = Mono
 		$30.inheritsScope = text/x-csharp
 		$30.scope = text/x-csharp
-		version = 2.0.1
+		version = 2.1.0
+		description = 3scale is an API Infrastructure service which handles API Keys, Rate Limiting, Analytics, Billing Payments and Developer Management. Includes a configurable API dashboard and developer portal CMS. More product stuff at http://www.3scale.net/, support information at http://support.3scale.net/.
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
