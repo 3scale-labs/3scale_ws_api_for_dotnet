@@ -43,22 +43,23 @@ namespace ConsoleDemo
             {
                 string provider_key = "YOUR_PROVIDER_KEY";
 
-                // If needed, add your service_id
-                //string service_id = "YOUR_SERVICE_ID";
+                // Add your service_id
+                string service_id = "YOUR_SERVICE_ID";
 
                 // Authorise using app_id (and app_key if necessary)
                 string app_id = "YOUR_APP_ID";
                 string app_key = "YOUR_APP_KEY";
 
+                string backend = "http://su1.3scale.net:80";
                 // Or alternatively you can authorise using user_key
                 // string user_key = "YOUR_USER_KEY";
 
-                Api _3ScaleAPI = new Api(provider_key);
+                Api _3ScaleAPI = new Api(backend, provider_key);
 
                 // Try authorize
                 Hashtable parameters = new Hashtable();
-                // Add service_id if needed
-                //parameters.Add("service_id", service_id);
+                // Add service_id
+                parameters.Add("service_id", service_id);
 
                 // Add app_id (and app_key if necessary) to list of parameters to send
                 parameters.Add("app_id", app_id);
@@ -89,6 +90,7 @@ namespace ConsoleDemo
                 System.Collections.Hashtable transaction = null;
                 transaction = new System.Collections.Hashtable();
                 transaction.Add("app_id", app_id);
+                transaction.Add("service_id", service_id);
                 //transaction.Add("user_key", user_key);
                 usage = new System.Collections.Hashtable();
                 usage.Add("hits", 10);
