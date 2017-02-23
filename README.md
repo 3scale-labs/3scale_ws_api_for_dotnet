@@ -56,7 +56,7 @@ Hashtable parameters = new Hashtable();
 parameters.Add("app_id", "your_app_id_");
 // You can also add the app_key if required...
 // parameters.Add("app_key", "your_app_key");
-// ...and the service id which is now mandatory
+// ...and the service id which is mandatory
 parameters.Add("service_id", "your_application_service_id");
 
 //Add a metric to the call
@@ -326,8 +326,9 @@ catch (ApiException e)
 Service Token Support
 =====================
 
-Instead of using a provider_key to authenticate against 3scale, you can use a service_token instead. In this case you 
-should use the following constructor to initialise the Api and pass in the service token with the other parameters, e.g 
+Instead of using a provider_key to authenticate against 3scale, you can use a service_token instead. You can read more about the different API keys available to access the 3scale APIs from our [terminology page](https://support.3scale.net/docs/terminology) 
+
+In this case you should use the following constructor to initialise the Api and pass in the service token with the other parameters, e.g 
 
 ```csharp
 // import the 3scale library into your code
@@ -370,7 +371,7 @@ To test
 To test the plugin with your real data:
 
 - Open up the [ConsoleDemo](https://github.com/3scale/3scale_ws_api_for_dotnet/tree/master/src/ConsoleDemo) project 
-- Edit Main function in [Program](https://github.com/3scale/3scale_ws_api_for_dotnet/blob/master/src/ConsoleDemo/Program.cs) with your provider key and app id (or user_key if you are using that instead.)
+- Edit Main function in [Program](https://github.com/3scale/3scale_ws_api_for_dotnet/blob/master/src/ConsoleDemo/Program.cs) with your account credentials
 - Run Program.cs
 
 Legal
