@@ -50,10 +50,11 @@ namespace ConsoleDemo
                 string app_id = "YOUR_APP_ID";
                 string app_key = "YOUR_APP_KEY";
 
+                string backend = "http://su1.3scale.net:80";
                 // Or alternatively you can authorise using user_key
                 // string user_key = "YOUR_USER_KEY";
 
-                Api _3ScaleAPI = new Api(provider_key);
+                Api _3ScaleAPI = new Api(backend, provider_key);
 
                 // Try authorize
                 Hashtable parameters = new Hashtable();
