@@ -16,7 +16,7 @@ This plugin supports the 3 main calls to the 3scale backend:
 
 - *authrep* grants access to your API and reports the traffic on it in one call.
 - *authorize* and *oauth_authorize* grant access to your API.
-- *report* and *oauth_report* reports traffic on your API.
+- *report* and *oauth_report* report traffic on your API.
 
 3scale supports 3 authentication modes: App Id, User Key and OAuth. 
 
