@@ -14,9 +14,9 @@ Synopsis
 
 This plugin supports the 3 main calls to the 3scale backend:
 
-- *authrep* and *oauth_authrep* grant access to your API and reports the traffic on it in one call.
+- *authrep* grants access to your API and reports the traffic on it in one call.
 - *authorize* and *oauth_authorize* grant access to your API.
-- *report* reports traffic on your API.
+- *report* and *oauth_report* report traffic on your API.
 
 3scale supports 3 authentication modes: App Id, User Key and OAuth. 
 
@@ -45,14 +45,19 @@ using CS_threescale;
 // ... somewhere inside your code
 
 // create the API object
-IApi _3ScaleAPI = new Api("your_provider_key");
-// If you are running your own 3scale backend on premise, you can also optionally pass in a host to the constructor, e.g
-// IApi _3ScaleAPI = new Api("your_provider_key", "https://su1.3scale.net:443")
-// If omitted, this will default to the 3scale backend: https://su1.3scale.net:443
+IApi _3ScaleAPI = new Api ();
+
+// If you need to set your on premise backend host
+_3ScaleAPI.HostURI = "http://yourbackend.com:80";
 
 // build a hashtable of parameters
 Hashtable parameters = new Hashtable();
 
+// Add the service_token
+string service_token = "service_token"
+parameters.Add ("service_token", service_token);
+
+// And the credentials
 parameters.Add("app_id", "your_app_id_");
 // You can also add the app_key if required...
 // parameters.Add("app_key", "your_app_key");
@@ -164,11 +169,19 @@ using CS_threescale;
 // ... somewhere inside your code
 
 // create the API object
-IApi _3ScaleAPI = new Api("your_provider_key");
+IApi _3ScaleAPI = new Api ();
+
+// If you need to set your on premise backend host
+_3ScaleAPI.HostURI = "http://yourbackend.com:80";
 
 // build a hashtable of parameters
 Hashtable parameters = new Hashtable();
 
+// Add the service_token
+string service_token = "service_token"
+parameters.Add ("service_token", service_token);
+
+// And the credentials and service_id
 parameters.Add("user_key", "your_user_key");
 parameters.Add("service_id", "your_user_key_service_id");
 
@@ -267,7 +280,7 @@ _3ScaleAPI.report(transactions);
 Usage on OAuth auth mode
 ==========================
 
-On OAuth you have to make two calls, first _authorize_ to grant naccess to your API and then _report_ the traffic on it.
+On OAuth you have to make two calls, first _authorize_ to grant access to your API and then _report_ the traffic on it.
 
 ```csharp
 // import the 3scale library into your code
@@ -276,12 +289,20 @@ using CS_threescale;
 // ... somewhere inside your code
 
 // create the API object
-IApi _3ScaleAPI = new Api("your_provider_key");
+IApi _3ScaleAPI = new Api ();
+
+// If you need to set your on premise backend host
+_3ScaleAPI.HostURI = "http://yourbackend.com:80";
 
 // build a hashtable of parameters
 Hashtable parameters = new Hashtable();
 
-parameters.Add("app_id", "your_oauth_app_id");
+// Add the service_token
+string service_token = "service_token"
+parameters.Add ("service_token", service_token);
+
+// And the credentials and service_id
+parameters.Add("app_id", "your_client_id");
 parameters.Add("service_id", "your_oauth_service_id");
 
 //Add a metric to the call
@@ -321,48 +342,6 @@ catch (ApiException e)
 {
     Console.WriteLine("Exception: " + e.ToString());
 }
-```
-
-Service Token Support
-=====================
-
-Instead of using a provider_key to authenticate against 3scale, you can use a service_token instead. You can read more about the different API keys available to access the 3scale APIs from our [terminology page](https://support.3scale.net/docs/terminology) 
-
-In this case you should use the following constructor to initialise the Api and pass in the service token with the other parameters, e.g 
-
-```csharp
-// import the 3scale library into your code
-using CS_threescale;
-
-// ... somewhere inside your code
-
-// create the API object
-    IApi _3ScaleAPI = new Api ();
-
-    // If you need to set your on premise backend host
-    _3ScaleAPI.HostURI = "http://yourbackend.com:80";
-
-    // Create a Hashtable containing a list of transactions to be reported on, e.g:
-    Hashtable transactions = new System.Collections.Hashtable();
-    Hashtable transaction = null;
-    Hashtable usage = null;
-
-    // create a transaction 
-    transaction = new System.Collections.Hashtable();
-
-    // Add the app_id:
-    string app_id = "your_app_id";
-    transaction.Add("app_id",app_id);
-
-    // the service_id:
-    string service_id = "your_service_id";
-    transaction.Add("service_id",service_id);
-
-    // And the service_token
-    string service_token = "service_token"
-    transaction.Add ("service_token", service_token);
-
-    // Usage can then be added as per the examplesabove
 ```
 
 To test
